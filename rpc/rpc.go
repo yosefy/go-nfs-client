@@ -8,21 +8,6 @@ import (
 	"github.com/fdawg4l/nfs/xdr"
 )
 
-type Header struct {
-	Rpcvers uint32
-	Prog    uint32
-	Vers    uint32
-	Proc    uint32
-	Cred    Auth
-	Verf    Auth
-}
-
-type message struct {
-	Xid     uint32
-	Msgtype uint32
-	Body    interface{}
-}
-
 type Auth struct {
 	Flavor uint32
 	Body   []byte
