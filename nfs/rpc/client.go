@@ -10,6 +10,7 @@ import (
 	"io"
 	"math/rand"
 	"net"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -44,6 +45,7 @@ func init() {
 
 type Client struct {
 	*tcpTransport
+	sync.Mutex
 }
 
 func DialTCP(network string, ldr *net.TCPAddr, addr string) (*Client, error) {
@@ -62,7 +64,7 @@ func DialTCP(network string, ldr *net.TCPAddr, addr string) (*Client, error) {
 		wc: conn,
 	}
 
-	return &Client{t}, nil
+	return &Client{t, sync.Mutex{}}, nil
 }
 
 type message struct {
@@ -72,7 +74,9 @@ type message struct {
 }
 
 func (c *Client) Call(call interface{}) (io.ReadSeeker, error) {
-	retries := 1
+	c.Lock()
+	defer c.Unlock()
+	retries := 5
 
 	msg := &message{
 		Xid:  atomic.AddUint32(&xid, 1),
@@ -100,6 +104,12 @@ retry:
 	}
 
 	if xid != msg.Xid {
+		// emulate Linux behaviour for xid mismatch
+		if retries > 0 {
+			util.Debugf("Retrying on xid mismatch")
+			retries--
+			goto retry
+		}
 		return nil, fmt.Errorf("xid did not match, expected: %x, received: %x", msg.Xid, xid)
 	}
 
