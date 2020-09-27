@@ -12,8 +12,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/vmware/go-nfs-client/nfs/rpc"
-	"github.com/vmware/go-nfs-client/nfs/util"
+	"github.com/Xmister/go-nfs-client/nfs/rpc"
+	"github.com/Xmister/go-nfs-client/nfs/util"
 )
 
 const (
