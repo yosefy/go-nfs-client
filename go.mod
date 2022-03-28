@@ -1,4 +1,4 @@
-module github.com/yosefy/go-nfs-client/nfs
+module github.com/yosefy/go-nfs-client
 
 go 1.18
 
