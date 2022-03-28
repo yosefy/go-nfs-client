@@ -42,7 +42,8 @@ func init() {
 	// seed the XID (which is set by the client)
 	xid = rand.New(rand.NewSource(time.Now().UnixNano())).Uint32()
 }
-
+// added by zema1
+var DefaultReadTimeout = time.Second * 5
 type Client struct {
 	*tcpTransport
 	sync.Mutex
@@ -62,6 +63,7 @@ func DialTCP(network string, ldr *net.TCPAddr, addr string) (*Client, error) {
 	t := &tcpTransport{
 		r:  bufio.NewReader(conn),
 		wc: conn,
+		timeout: DefaultReadTimeout,
 	}
 
 	return &Client{t, sync.Mutex{}}, nil
