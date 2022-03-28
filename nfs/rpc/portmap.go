@@ -6,7 +6,7 @@ package rpc
 import (
 	"fmt"
 
-	"github.com/Xmister/go-nfs-client/nfs/xdr"
+	"github.com/yosefy/go-nfs-client/nfs/xdr"
 )
 
 // PORTMAP

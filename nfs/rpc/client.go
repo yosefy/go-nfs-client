@@ -14,8 +14,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Xmister/go-nfs-client/nfs/util"
-	"github.com/Xmister/go-nfs-client/nfs/xdr"
+	"github.com/yosefy/go-nfs-client/nfs/util"
+	"github.com/yosefy/go-nfs-client/nfs/xdr"
 )
 
 const (

@@ -7,8 +7,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Xmister/go-nfs-client/nfs/rpc"
-	"github.com/Xmister/go-nfs-client/nfs/xdr"
+	"github.com/yosefy/go-nfs-client/nfs/rpc"
+	"github.com/yosefy/go-nfs-client/nfs/xdr"
 )
 
 const (
