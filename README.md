@@ -1,7 +1,12 @@
 NFS Client for Golang
 =====================
 
+
 [![godoc](http://godoc.org/github.com/fdawg4l/nfs?status.svg)](http://godoc.org/github.com/fdawg4l/nfs)
+
+## Modified by zema1
+
++ Add DefaultReadTimeout for client transport
 
 This is forked from and builds upon the work done [here](https://github.com/davecheney/nfs) which was put in the [public domain](https://github.com/davecheney/nfs/issues/1#issuecomment-280563247).
 
