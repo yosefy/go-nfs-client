@@ -14,8 +14,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/yosefy/go-nfs-client/nfs/util"
-	"github.com/yosefy/go-nfs-client/nfs/xdr"
+	"github.com/yosefy/go-nfs-client/util"
+	"github.com/yosefy/go-nfs-client/xdr"
 )
 
 const (
@@ -42,8 +42,10 @@ func init() {
 	// seed the XID (which is set by the client)
 	xid = rand.New(rand.NewSource(time.Now().UnixNano())).Uint32()
 }
+
 // added by zema1
 var DefaultReadTimeout = time.Second * 5
+
 type Client struct {
 	*tcpTransport
 	sync.Mutex
@@ -61,8 +63,8 @@ func DialTCP(network string, ldr *net.TCPAddr, addr string) (*Client, error) {
 	}
 
 	t := &tcpTransport{
-		r:  bufio.NewReader(conn),
-		wc: conn,
+		r:       bufio.NewReader(conn),
+		wc:      conn,
 		timeout: DefaultReadTimeout,
 	}
 
