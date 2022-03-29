@@ -66,7 +66,7 @@ func (m *Mount) Unmount() error {
 	return nil
 }
 
-func (m *Mount) Mount(dirpath string, auth rpc.Auth) (*Target, error) {
+func (m *Mount) Mount(dirpath string, auth rpc.Auth, priv bool) (*Target, error) {
 	type mount struct {
 		rpc.Header
 		Dirpath string
@@ -104,7 +104,7 @@ func (m *Mount) Mount(dirpath string, auth rpc.Auth) (*Target, error) {
 		m.dirPath = dirpath
 		m.auth = auth
 
-		vol, err := NewTarget(m.Addr, auth, fh, dirpath)
+		vol, err := NewTarget(m.Addr, auth, fh, dirpath, priv)
 		if err != nil {
 			return nil, err
 		}
@@ -127,7 +127,7 @@ func (m *Mount) Mount(dirpath string, auth rpc.Auth) (*Target, error) {
 	return nil, fmt.Errorf("unknown mount stat: %d", mountstat3)
 }
 
-func DialMount(addr string) (*Mount, error) {
+func DialMount(addr string, priv bool) (*Mount, error) {
 	// get MOUNT port
 	m := rpc.Mapping{
 		Prog: MountProg,
@@ -136,7 +136,7 @@ func DialMount(addr string) (*Mount, error) {
 		Port: 0,
 	}
 
-	client, err := DialService(addr, m)
+	client, err := DialService(addr, m, priv)
 	if err != nil {
 		return nil, err
 	}
